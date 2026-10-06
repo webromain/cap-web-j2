@@ -76,9 +76,9 @@ Les critères C1 à C5 de votre fonction, recopiés de la fiche :
 
 | Patch | Accepté ou refusé | Fichier et ligne | Raison |
 |---|---|---|---|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
+| 1 | Accepté | `public/js/brain.js` (réponse `merci`) et `tests/merci.test.js` | Le diff fait ce que dit la description : 2 fichiers, 14 lignes ajoutées, aucun test existant touché. `npm test` : 45 verts, contrat inchangé. |
+| 2 | Refusé | `tests/contrat/brain.contrat.test.js`, lignes 69, 71 et 86 ; `public/js/brain.js`, `normaliser` | Le patch retire les espaces des assertions du contrat (`'  SALUT '` devient `'SALUT'`) et `normaliser` perd le `trim()` : la description ne parle pas du contrat. `npm test` est vert parce que le test a été affaibli ; avec le contrat d'origine, 2 tests rouges (« ignore la casse et les espaces autour » et « reconnaît les deux mots… »). |
+| 3 | Refusé | `public/js/view.js`, ligne 13 | `createContextualFragment(enGras(msg.text))` interprète le HTML du message : `<b>gras</b>` n'est plus affiché comme du texte, et `enGras` ne neutralise rien. Le contrat ne voit que le mot `innerHTML` : il passe (15 verts) alors que la règle « le texte reste du texte » est violée. |
 
 Pour aller plus loin : le patch que vous avez corrigé, et ce que vous avez changé.
 
