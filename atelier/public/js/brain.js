@@ -49,3 +49,22 @@ export function replyTo(message) {
   // Message inconnu : on rappelle ce que Cap Web sait faire.
   return REPONSES.repli;
 }
+
+const SYNONYMES = {
+  coucou: 'salut',
+  hello: 'salut',
+  bonsoir: 'salut',
+  help: 'aide',
+  sos: 'aide'
+};
+
+export function synonyme(message) {
+  if (typeof message !== 'string') {
+    return '';
+  }
+  const texte = message.trim().toLowerCase();
+  if (Object.hasOwn(SYNONYMES, texte)) {
+    return SYNONYMES[texte];
+  }
+  return texte;
+}
