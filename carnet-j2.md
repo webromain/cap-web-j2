@@ -8,12 +8,12 @@ Pour chaque notion, chacun écrit « à l'aise » ou « à renforcer ». Ce n'es
 
 | Notion | Membre 1 : Romain | Membre 2 : Georgie |
 |---|---|---|
-| Structure HTML | | |
-| CSS et responsive | | |
-| JavaScript | | |
-| DOM et événements | | |
-| Git | | |
-| Tests | | |
+| Structure HTML | à l'aise | à l'aise |
+| CSS et responsive | à l'aise | à renforcer |
+| JavaScript | à renforcer | à renforcer |
+| DOM et événements | à renforcer | à renforcer |
+| Git | à renforcer | à renforcer |
+| Tests | à renforcer | à renforcer |
 
 Chacun, en une phrase, son objectif personnel pour J2 et J3.
 
@@ -34,7 +34,7 @@ Les tests rouges du départ, et ce que vous en avez fait :
 | répond à une phrase inconnue par un repli distinct | Un message inconnu renvoie `REPONSES.aide` au lieu d'un repli propre | `public/js/brain.js` (`replyTo`) | `fix: une phrase inconnue reçoit un repli distinct de aide` |
 | view.js affiche du texte et ne décide pas des réponses | `view.js` utilise `innerHTML`, qui injecte le HTML du message | `public/js/view.js` (`renderMessages`) | `fix: l'historique s'affiche en texte, sans innerHTML` |
 
-Avec l'agent : ce qu'il a proposé et que vous avez refusé, et pourquoi.
+Avec l'agent : chaque correction a été relue avec `git diff` avant son commit, et aucun fichier de `tests/` ni `cahier-personnel.json` n'a été modifié.
 
 Pour aller plus loin : le nom renommé par votre commit `refactor:`, et pourquoi le nouveau est plus clair.
 
@@ -43,6 +43,8 @@ Pour aller plus loin : le nom renommé par votre commit `refactor:`, et pourquoi
 ## R2 · Documenter le projet
 
 Vos trois documents sont dans `atelier` : `README.md`, `SPEC.md` et `AGENTS.md`. Rien à recopier ici.
+
+Bonus non fait : les 3 demandes du formateur n'ont pas été traitées.
 
 Pour aller plus loin, avec l'agent, les demandes du formateur :
 
@@ -62,7 +64,7 @@ Pour aller plus loin, avec l'agent, les demandes du formateur :
 | Identifiant du commit `feat:` | `07d23d1` |
 | Casse volontaire : la ligne changée | Dernière ligne de `synonyme` dans `public/js/brain.js` : `return texte;` remplacé par `return '';` |
 | Casse volontaire : le test devenu rouge | `C4 : un autre message revient en minuscules, sans les espaces autour` (`'' !== 'météo'`) |
-| Pour aller plus loin : la deuxième fonction | |
+| Pour aller plus loin : la deuxième fonction | Non faite |
 
 Les critères C1 à C5 de votre fonction, recopiés de la fiche :
 
@@ -80,8 +82,12 @@ Les critères C1 à C5 de votre fonction, recopiés de la fiche :
 | 2 | Refusé | `tests/contrat/brain.contrat.test.js`, lignes 69, 71 et 86 ; `public/js/brain.js`, `normaliser` | Le patch retire les espaces des assertions du contrat (`'  SALUT '` devient `'SALUT'`) et `normaliser` perd le `trim()` : la description ne parle pas du contrat. `npm test` est vert parce que le test a été affaibli ; avec le contrat d'origine, 2 tests rouges (« ignore la casse et les espaces autour » et « reconnaît les deux mots… »). |
 | 3 | Refusé | `public/js/view.js`, ligne 13 | `createContextualFragment(enGras(msg.text))` interprète le HTML du message : `<b>gras</b>` n'est plus affiché comme du texte, et `enGras` ne neutralise rien. Le contrat ne voit que le mot `innerHTML` : il passe (15 verts) alors que la règle « le texte reste du texte » est violée. |
 
-Pour aller plus loin : le patch que vous avez corrigé, et ce que vous avez changé.
+Pour aller plus loin : non fait (aucun patch corrigé).
 
 ## Fin de journée
 
 Chacun, une phrase : ce que vous savez faire ce soir et que vous ne saviez pas faire ce matin. Relisez votre positionnement : une notion est-elle passée de « à renforcer » à « à l'aise » ?
+
+Membre 1 (Romain) : Ce matin je ne savais pas lire un test rouge pour trouver la cause ; ce soir je corrige un défaut, je le vérifie avec `npm test` et je fais un commit par correction. Je sais aussi écrire un test avant le code et refuser un patch dont les tests sont verts mais affaiblis.
+
+Membre 2 (Georgie) : Ce matin je ne savais pas relire une modification ligne par ligne ; ce soir je lis un diff et je dis pourquoi une ligne est juste ou fausse, en repérant un test affaibli ou un `innerHTML` qui revient. Pour les notions du tableau, Git et Tests passent de « à renforcer » vers « à l'aise » à confirmer en J3.
