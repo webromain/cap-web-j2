@@ -27,8 +27,8 @@ Les tests rouges du départ, et ce que vous en avez fait :
 
 | Test rouge | Cause trouvée (une phrase) | Fichier | Message du commit `fix:` |
 |---|---|---|---|
-| refuse le vide et les espaces seuls | Le test du vide se fait sur `raw` avant le `trim()` : les espaces seuls passent | `public/js/brain.js` (`validateMessage`) | |
-| accepte 210 caractères et refuse 211 | La limite est écrite en dur (280) au lieu d'utiliser `LIMITE` | `public/js/brain.js` (`validateMessage`) | |
+| refuse le vide et les espaces seuls | Le test du vide se fait sur `raw` avant le `trim()` : les espaces seuls passent | `public/js/brain.js` (`validateMessage`) | `fix: validateMessage retire les espaces avant de tester le vide et utilise LIMITE` |
+| accepte 210 caractères et refuse 211 | La limite est écrite en dur (280) au lieu d'utiliser `LIMITE` | `public/js/brain.js` (`validateMessage`) | `fix: validateMessage retire les espaces avant de tester le vide et utilise LIMITE` |
 | ignore la casse et les espaces autour | `replyTo` ne fait pas de `trim()` : `'  SALUT '` n'est pas reconnu | `public/js/brain.js` (`replyTo`) | |
 | reconnaît les deux mots du cahier personnel, quelles que soient la casse et les espaces autour | Même cause que le test précédent : le `trim()` manque dans `replyTo`, donc `'  ATELIER '` tombe dans le repli | `public/js/brain.js` (`replyTo`) | |
 | répond à une phrase inconnue par un repli distinct | Un message inconnu renvoie `REPONSES.aide` au lieu d'un repli propre | `public/js/brain.js` (`replyTo`) | |
