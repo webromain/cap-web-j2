@@ -38,6 +38,8 @@ Avec l'agent : ce qu'il a proposé et que vous avez refusé, et pourquoi.
 
 Pour aller plus loin : le nom renommé par votre commit `refactor:`, et pourquoi le nouveau est plus clair.
 
+`liste` devient `motsCites` (`refactor: liste devient motsCites`) : « liste » ne disait pas de quoi, alors que `motsCites` dit que c'est le texte des deux mots reconnus, cités dans la réponse à « aide ».
+
 ## R2 · Documenter le projet
 
 Vos trois documents sont dans `atelier` : `README.md`, `SPEC.md` et `AGENTS.md`. Rien à recopier ici.

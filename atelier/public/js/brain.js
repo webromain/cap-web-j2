@@ -9,11 +9,11 @@ const MOTS = {
   orage: 'Un orage apporte éclairs, tonnerre et fortes pluies.'
 };
 
-const liste = Object.keys(MOTS).map((mot) => `« ${mot} »`).join(' et ');
+const motsCites = Object.keys(MOTS).map((mot) => `« ${mot} »`).join(' et ');
 
 const REPONSES = {
   salut: 'Bonjour ! Je suis Cap Web, un assistant à règles. Écrivez « aide » pour voir ce que je sais faire.',
-  aide: `Je connais « salut », « aide », « test », et deux mots à moi : ${liste}.`,
+  aide: `Je connais « salut », « aide », « test », et deux mots à moi : ${motsCites}.`,
   test: 'Test bien reçu : mes règles fonctionnent.',
   repli: 'Je ne comprends pas encore cette phrase. Écrivez « aide » pour voir ce que je sais faire.'
 };
