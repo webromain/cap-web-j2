@@ -108,3 +108,27 @@ Prédiction, écrite avant de toucher au code : à « aide », Cap Web citera bi
 Pendant l'essai sans `label`, la console affiche une erreur rouge et le score Bonnes pratiques passe de 100 à 96 : la limite s'affiche dans un `span` placé dans le `label`, que `app.js` ne trouve plus. Le `label` a été remis ensuite.
 
 Au clavier seul (Tab jusqu'au champ, message tapé, envoi) : tout fonctionne sans la souris.
+
+commandes du README testées une par une, toutes OK
+
+## J3 · Test du README 
+|Commande du README	|    Résultat  |
+|git pull --no-rebase	|  Déjà à jour |
+|npm ci	82 packages installés.|  La vulnérabilité annoncée est normale (le README le dit).|
+|npm start	| « Cap Web prêt sur http://127.0.0.1:3000/ » |
+|npm test	| 54 tests, 54 passés, fail 0. Le contrat (15) et le test de la route /api/conseil sont verts.|
+
+## J3 · Étape 10 · Relecture et fusion
+- PR #2 (feat: nouvelle couleur, commit d8f0bab) : relecture demandée à Romain.
+- Commentaire de Romain : « bravo : seules les variables --accent et --accent-fonce changent, donc tous les boutons passent au vert d'un coup. »
+- Avis de type Comment (pas d'Approve visible). Fusion faite par Romain (6819912). Check « tests » passé.
+- git log --graph : deux fusions visibles (#1 et #2).
+
+## J3 · Étape 11 · Les quatre attaques
+| Attaque | Résultat | Détail |
+|---|---|---|
+| 1 serveur arrêté, puis « conseil » | repoussée | message vu : « Le serveur ne répond pas : conseil indisponible. » |
+| 2 message de plus de 210 caractères | repoussée | erreur visible sous le formulaire, rien ajouté |
+| 3 `<b>test</b>` | repoussée | affiché tel quel, chevrons compris |
+| 4 largeur 375 px | repoussée | bouton pleine largeur, pas de défilement horizontal |
+
