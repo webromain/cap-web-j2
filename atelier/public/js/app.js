@@ -9,6 +9,7 @@ const statut = document.querySelector('#status');
 const effacer = document.querySelector('#effacer');
 const versionElt = document.querySelector('#version');
 const limiteElt = document.querySelector('#limite');
+const compteur = document.querySelector('#compteur');
 
 const CLE = 'capweb.historique';
 const historique = [];
@@ -32,7 +33,29 @@ function charger() {
   }
 }
 
-formulaire.addEventListener('submit', (event) => {
+function afficherCompteur() {
+  compteur.textContent = `${champ.value.length} / ${LIMITE}`;
+}
+
+champ.addEventListener('input', afficherCompteur);
+
+async function demanderConseil() {
+  try {
+    const reponse = await fetch('/api/conseil', { headers: { accept: 'application/json' } });
+    if (!reponse.ok) {
+      throw new Error(`Statut ${reponse.status}`);
+    }
+    const donnees = await reponse.json();
+    if (typeof donnees.conseil !== 'string') {
+      throw new Error('Conseil absent de la réponse');
+    }
+    return donnees.conseil;
+  } catch {
+    return 'Le serveur ne répond pas : conseil indisponible.';
+  }
+}
+
+formulaire.addEventListener('submit', async (event) => {
   event.preventDefault();
   const controle = validateMessage(champ.value);
   if (!controle.ok) {
@@ -40,11 +63,14 @@ formulaire.addEventListener('submit', (event) => {
     champ.focus();
     return;
   }
+  const estConseil = controle.value.toLowerCase() === 'conseil';
+  const reponse = estConseil ? await demanderConseil() : replyTo(controle.value);
   historique.push({ role: 'user', text: controle.value });
-  historique.push({ role: 'assistant', text: replyTo(controle.value) });
+  historique.push({ role: 'assistant', text: reponse });
   sauvegarder();
   renderMessages(historique, liste);
   champ.value = '';
+  afficherCompteur();
   statut.textContent = '';
   champ.focus();
 });
@@ -62,15 +88,25 @@ effacer.addEventListener('click', () => {
 // La limite vient de brain.js : un seul endroit à modifier.
 champ.maxLength = LIMITE;
 limiteElt.textContent = String(LIMITE);
+afficherCompteur();
 
 charger();
 renderMessages(historique, liste);
 
-fetch('/version.json', { headers: { accept: 'application/json' } })
-  .then((reponse) => (reponse.ok ? reponse.json() : null))
-  .then((donnees) => {
-    if (donnees && typeof donnees.version === 'string' && versionElt) {
-      versionElt.textContent = `version ${donnees.version}`;
+async function afficherVersion() {
+  try {
+    const reponse = await fetch('/version.json', { headers: { accept: 'application/json' } });
+    if (!reponse.ok) {
+      throw new Error(`Statut ${reponse.status}`);
     }
-  })
-  .catch(() => {});
+    const donnees = await reponse.json();
+    if (typeof donnees.version !== 'string') {
+      throw new Error('Version absente de la réponse');
+    }
+    versionElt.textContent = `version ${donnees.version}`;
+  } catch {
+    versionElt.textContent = 'version indisponible';
+  }
+}
+
+afficherVersion();

@@ -91,3 +91,20 @@ Chacun, une phrase : ce que vous savez faire ce soir et que vous ne saviez pas f
 Membre 1 (Romain) : Ce matin je ne savais pas lire un test rouge pour trouver la cause ; ce soir je corrige un défaut, je le vérifie avec `npm test` et je fais un commit par correction. Je sais aussi écrire un test avant le code et refuser un patch dont les tests sont verts mais affaiblis.
 
 Membre 2 (Georgie) : Ce matin je ne savais pas relire une modification ligne par ligne ; ce soir je lis un diff et je dis pourquoi une ligne est juste ou fausse, en repérant un test affaibli ou un `innerHTML` qui revient. Pour les notions du tableau, Git et Tests passent de « à renforcer » vers « à l'aise » à confirmer en J3.
+
+# Jour 3
+
+## Étape 1 · Le troisième mot
+
+Prédiction, écrite avant de toucher au code : à « aide », Cap Web citera bien les trois mots, mais annoncera encore « deux mots à moi ». La liste des mots est calculée à partir de `MOTS` (`Object.keys(MOTS)`), alors que le nombre « deux » est écrit à la main dans la phrase.
+
+## Étape 3 · L'accessibilité avec Lighthouse
+
+| Essai | Score Accessibilité | Alerte |
+|---|---|---|
+| Page d'origine, avec le `label` | 100 | Aucune |
+| Sans le `label` du champ | 93 | « Form elements do not have associated labels » : le champ `textarea` n'a plus de nom, un lecteur d'écran ne peut plus dire à quoi il sert |
+
+Pendant l'essai sans `label`, la console affiche une erreur rouge et le score Bonnes pratiques passe de 100 à 96 : la limite s'affiche dans un `span` placé dans le `label`, que `app.js` ne trouve plus. Le `label` a été remis ensuite.
+
+Au clavier seul (Tab jusqu'au champ, message tapé, envoi) : tout fonctionne sans la souris.

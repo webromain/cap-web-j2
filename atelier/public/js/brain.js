@@ -6,14 +6,15 @@ export const LIMITE = 210;
 
 const MOTS = {
   atelier: 'Un atelier est un lieu où l’on fabrique et où l’on apprend.',
-  orage: 'Un orage apporte éclairs, tonnerre et fortes pluies.'
+  orage: 'Un orage apporte éclairs, tonnerre et fortes pluies.',
+  restaurant: 'Un restaurant est un lieu où l’on sert des repas, à midi ou le soir.'
 };
 
 const motsCites = Object.keys(MOTS).map((mot) => `« ${mot} »`).join(' et ');
 
 const REPONSES = {
   salut: 'Bonjour ! Je suis Cap Web, un assistant à règles. Écrivez « aide » pour voir ce que je sais faire.',
-  aide: `Je connais « salut », « aide », « test », et deux mots à moi : ${motsCites}.`,
+  aide: `Je connais « salut », « aide », « test », et ${Object.keys(MOTS).length} mots à moi : ${motsCites}.`,
   test: 'Test bien reçu : mes règles fonctionnent.',
   repli: 'Je ne comprends pas encore cette phrase. Écrivez « aide » pour voir ce que je sais faire.'
 };
