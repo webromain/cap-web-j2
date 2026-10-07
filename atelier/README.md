@@ -33,3 +33,26 @@ npm test
 | `brain.js` | Les règles. Fonctions pures, sans accès à la page : `validateMessage` vérifie le message (texte, non vide, pas plus de `LIMITE` caractères) et `replyTo` choisit la réponse. |
 | `view.js` | L'affichage. `renderMessages` construit la liste des messages en texte (`textContent`), sans HTML et sans décider des réponses. |
 | `app.js` | Le câblage. Lit le formulaire, appelle `brain.js`, garde l'historique dans `localStorage` et demande l'affichage à `view.js`. |
+
+## Arborescence du projet
+
+```text
+atelier/
+├── public/              la page servie au navigateur
+│   ├── index.html       la structure de la page
+│   ├── styles.css       la mise en forme, dont la version mobile
+│   └── js/
+│       ├── brain.js     les règles
+│       ├── view.js      l'affichage
+│       └── app.js       le câblage
+├── server/
+│   ├── app.js           les routes, dont /api/conseil et /version.json
+│   └── start.js         le lancement du serveur
+├── tests/               les tests lancés par npm test
+│   └── contrat/         le contrat du formateur, à ne pas modifier
+├── browser/             les tests dans un vrai navigateur
+├── scripts/             les outils de vérification
+├── AGENTS.md            les conventions du projet
+├── SPEC.md              les critères attendus
+└── README.md            ce fichier
+```
