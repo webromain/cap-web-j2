@@ -105,6 +105,28 @@ Prédiction, écrite avant de toucher au code : à « aide », Cap Web citera bi
 | Page d'origine, avec le `label` | 100 | Aucune |
 | Sans le `label` du champ | 93 | « Form elements do not have associated labels » : le champ `textarea` n'a plus de nom, un lecteur d'écran ne peut plus dire à quoi il sert |
 
+## J3 · Test du README (rôle B)
+Commandes testées une par une dans mon clone : `git pull --no-rebase`, `npm ci`, `npm start`, `npm test` (54 passés, fail 0), `curl /api/conseil` : toutes OK (à confirmer pour curl après relance du serveur).
+Fautes de frappe repérées : « auhasard », « conseilindisponible », « àjour » (à signaler à A).
+
+## J3 · Étapes 8 à 10 (GitHub à deux)
+Rôle B : clone fait avec mon compte, branche `georgie`, PR #2 fusionnée (commit `d8f0bab`). Relecture de la PR #1 de A : commentaire de type « bravo ».
+Difficulté : cherry-pick entre deux dossiers aux historiques différents, conflits sur view.js et brain.js ; abandon et passage par `main`.
+
+## J3 · Étape 10 · Relecture et fusion
+- Relecture de ma PR #2 par Romain : commentaire (type + fait) : ... ; Approve : oui / non.
+- Fusion de la PR #2 faite par moi (auteur) : oui.
+- `git log --graph` : deux fusions visibles (#1 et #2).
+
+## J3 · Étape 11 · Les quatre attaques
+
+| Attaque | Résultat | Détail |
+|---|---|---|
+| 1 serveur arrêté, puis « conseil » | repoussée | message vu : « Le serveur ne répond pas : conseil indisponible. » |
+| 2 message de plus de 210 caractères | repoussée | erreur visible sous le formulaire, rien ajouté |
+| 3 `<b>test</b>` | repoussée | affiché tel quel, chevrons compris |
+| 4 largeur 375 px | repoussée | bouton pleine largeur, pas de défilement horizontal |
+
 Pendant l'essai sans `label`, la console affiche une erreur rouge et le score Bonnes pratiques passe de 100 à 96 : la limite s'affiche dans un `span` placé dans le `label`, que `app.js` ne trouve plus. Le `label` a été remis ensuite.
 
 Au clavier seul (Tab jusqu'au champ, message tapé, envoi) : tout fonctionne sans la souris.
