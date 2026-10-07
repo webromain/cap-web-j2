@@ -21,6 +21,13 @@ const TYPES = {
   'js/view.js': 'text/javascript; charset=utf-8'
 };
 
+// Conseils renvoyés par /api/conseil, un au hasard à chaque appel.
+const CONSEILS = [
+  'Passez à l’office de tourisme dès votre arrivée : les plans y sont gratuits.',
+  'Réservez votre restaurant la veille, surtout le week-end.',
+  'Regardez la météo avant de partir en balade : un orage arrive vite.'
+];
+
 export function createApp({ publicDir, version = 'dev' } = {}) {
   const serveur = http.createServer((req, res) => {
     traiter(req, res).catch(() => {
@@ -48,6 +55,14 @@ export function createApp({ publicDir, version = 'dev' } = {}) {
     } catch {
       res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
       res.end('Non trouvé');
+      return;
+    }
+    // Un conseil tiré au hasard, en JSON.
+    if (chemin === '/api/conseil') {
+      const conseil = CONSEILS[Math.floor(Math.random() * CONSEILS.length)];
+      const corps = JSON.stringify({ conseil });
+      res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'content-length': Buffer.byteLength(corps) });
+      res.end(methode === 'HEAD' ? '' : corps);
       return;
     }
     // Métadonnée de version fournie au démarrage.
