@@ -69,3 +69,12 @@ export function synonyme(message) {
   }
   return texte;
 }
+
+// Un message de l'historique : un objet, un rôle connu et du texte.
+export function estMessage(m) {
+  if (typeof m !== 'object' || m === null) {
+    return false;
+  }
+  const roleConnu = m.role === 'user' || m.role === 'assistant';
+  return roleConnu && typeof m.text === 'string';
+}
