@@ -35,6 +35,7 @@ function charger() {
 
 function afficherCompteur() {
   compteur.textContent = `${champ.value.length} / ${LIMITE}`;
+  compteur.classList.toggle('alerte', champ.value.length >= LIMITE * 0.9);
 }
 
 champ.addEventListener('input', afficherCompteur);
