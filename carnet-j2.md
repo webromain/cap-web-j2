@@ -97,3 +97,14 @@ Membre 2 (Georgie) : Ce matin je ne savais pas relire une modification ligne par
 ## Étape 1 · Le troisième mot
 
 Prédiction, écrite avant de toucher au code : à « aide », Cap Web citera bien les trois mots, mais annoncera encore « deux mots à moi ». La liste des mots est calculée à partir de `MOTS` (`Object.keys(MOTS)`), alors que le nombre « deux » est écrit à la main dans la phrase.
+
+## Étape 3 · L'accessibilité avec Lighthouse
+
+| Essai | Score Accessibilité | Alerte |
+|---|---|---|
+| Page d'origine, avec le `label` | 100 | Aucune |
+| Sans le `label` du champ | 93 | « Form elements do not have associated labels » : le champ `textarea` n'a plus de nom, un lecteur d'écran ne peut plus dire à quoi il sert |
+
+Pendant l'essai sans `label`, la console affiche une erreur rouge et le score Bonnes pratiques passe de 100 à 96 : la limite s'affiche dans un `span` placé dans le `label`, que `app.js` ne trouve plus. Le `label` a été remis ensuite.
+
+Au clavier seul (Tab jusqu'au champ, message tapé, envoi) : tout fonctionne sans la souris.
