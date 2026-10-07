@@ -123,3 +123,9 @@ footer {
     width: 100%;
   }
 }
+
+/* Le compteur prévient quand le texte approche de la limite. */
+#compteur.alerte {
+  color: #b00020;
+  font-weight: 700;
+}
