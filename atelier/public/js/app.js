@@ -75,6 +75,14 @@ formulaire.addEventListener('submit', async (event) => {
   champ.focus();
 });
 
+// Comme dans une messagerie : Entrée envoie, Maj+Entrée va à la ligne.
+champ.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    formulaire.requestSubmit();
+  }
+});
+
 effacer.addEventListener('click', () => {
   if (!confirm('Effacer toute la conversation ?')) {
     return;
