@@ -98,12 +98,75 @@ Membre 2 (Georgie) : Ce matin je ne savais pas relire une modification ligne par
 
 Prédiction, écrite avant de toucher au code : à « aide », Cap Web citera bien les trois mots, mais annoncera encore « deux mots à moi ». La liste des mots est calculée à partir de `MOTS` (`Object.keys(MOTS)`), alors que le nombre « deux » est écrit à la main dans la phrase.
 
+## Étape 2 · Le compteur de caractères
+
+Sous le champ de saisie, tu affiches un petit texte « 0 / 210 » (la limite est 210). Il doit : se mettre à jour à chaque touche tapée (« 5 / 210 », « 6 / 210 »...) ; revenir à « 0 / 210 » quand le message est envoyé et que le champ est vidé.
+
 ## Étape 3 · L'accessibilité avec Lighthouse
 
 | Essai | Score Accessibilité | Alerte |
 |---|---|---|
 | Page d'origine, avec le `label` | 100 | Aucune |
 | Sans le `label` du champ | 93 | « Form elements do not have associated labels » : le champ `textarea` n'a plus de nom, un lecteur d'écran ne peut plus dire à quoi il sert |
+
+## Étape 4 . la version mobile
+
+Sur un petit écran (téléphone), le bouton Envoyer doit prendre toute la largeur de la page, pour être facile à toucher du pouce. Sur grand écran, rien ne change.
+
+## Étape 5 . la version, même en cas de panne
+
+Recharge la page : le pied de page affiche « version dev ».
+Remplace un instant '/version.json' par '/version2.json'.
+Enregistre, recharge : le pied de page doit afficher « version indisponible ».
+Remets '/version.json', enregistre, recharge : « version dev » revient.
+
+## Étape 6 . Ta propre route
+
+Le serveur ne relit pas son code tout seul :
+
+Terminal 1 : je fais Ctrl+C, puis npm start.
+Ouvre http://127.0.0.1:3000/api/conseil.
+Tu vois {"conseil":"..."}. Recharge plusieurs fois : le conseil change.
+
+## Étape 7. Cap Web donne un conseil
+
+À l'étape 6, ton serveur a appris à répondre à /api/conseil. Maintenant, la page l'appelle : quand j'écris « conseil » dans le chat, Cap Web va chercher un conseil au serveur et l'affiche comme réponse. Si le serveur est arrêté, il affiche un message clair, pas un écran blanc.
+
+1. Cas normal : le serveur tourne. Recharge la page, envoie conseil : un des trois conseils s'affiche. Renvoie-le plusieurs fois : il change. Envoie salut : la réponse habituelle.
+
+2. Cas d'erreur :
+Terminal 1 : Ctrl+C (le serveur s'arrête).
+Dans la page déjà ouverte (ne la recharge pas), envoie conseil : tu dois voir « Le serveur ne répond pas : conseil indisponible. », sans écran blanc.
+Terminal 1 : relance npm start.
+
+3. Ouvre la console des outils (Ctrl+Maj+I, onglet Console) : une erreur réseau rouge au moment de la panne est normale, mais pas d'autre erreur.
+
+## J3 · Étapes 8 à 10 (GitHub à deux)
+
+les branches ont été créer: romain et georgie 
+Rôle georgie : clone fait avec mon compte, branche `georgie`, PR #2 fusionnée (commit `d8f0bab`). Relecture de la PR #1 de A : commentaire de type « bravo ».
+Difficulté : cherry-pick entre deux dossiers aux historiques différents, conflits sur view.js et brain.js ; abandon et passage par `main`.
+
+Jusqu'ici, ton travail est uniquement sur ton ordinateur. Cette étape l'envoie sur GitHub pour que romain puisse le récupérer et travailler dessus.
+
+## J3 · Test du README (rôle B)
+Commandes testées une par une dans mon clone : `git pull --no-rebase`, `npm ci`, `npm start`, `npm test` (54 passés, fail 0), `curl /api/conseil` : toutes OK (à confirmer pour curl après relance du serveur).
+Fautes de frappe repérées : « auhasard », « conseilindisponible », « àjour » (à signaler à A).
+
+
+## J3 · Étape 10 · Relecture et fusion
+- Relecture de ma PR #2 par Romain : commentaire (type + fait) : ... ; Approve : oui / non.
+- Fusion de la PR #2 faite par moi (auteur) : oui.
+- `git log --graph` : deux fusions visibles (#1 et #2).
+
+## J3 · Étape 11 · Les quatre attaques
+
+| Attaque | Résultat | Détail |
+|---|---|---|
+| 1 serveur arrêté, puis « conseil » | repoussée | message vu : « Le serveur ne répond pas : conseil indisponible. » |
+| 2 message de plus de 210 caractères | repoussée | erreur visible sous le formulaire, rien ajouté |
+| 3 `<b>test</b>` | repoussée | affiché tel quel, chevrons compris |
+| 4 largeur 375 px | repoussée | bouton pleine largeur, pas de défilement horizontal |
 
 Pendant l'essai sans `label`, la console affiche une erreur rouge et le score Bonnes pratiques passe de 100 à 96 : la limite s'affiche dans un `span` placé dans le `label`, que `app.js` ne trouve plus. Le `label` a été remis ensuite.
 
